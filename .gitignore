@@ -1,0 +1,16 @@
+node_modules/
+.env
+*.log
+.DS_Store
+Thumbs.db
+build/
+dist/
+.settings/
+.classpath
+.project
+.expo/
+*.tsbuildinfo
+.vscode/
+.claude/
+coverage/
+.nyc_output/
