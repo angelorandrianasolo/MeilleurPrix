@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Configuration Tomcat 9 — copier ou surcharger apiBaseUrl dans conf/Catalina/localhost/meilleur-prix.xml
+  Doc : https://tomcat.apache.org/tomcat-9.0-doc/config/context.html
+-->
+<Context path="/meilleur-prix" reloadable="true">
+  <Parameter name="apiBaseUrl" value="http://localhost:3000" override="false"/>
+</Context>
