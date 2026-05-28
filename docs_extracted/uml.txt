@@ -1,0 +1,542 @@
+Méthodologie de travail et de conception avec UML
+Support méthodologique pour des étudiants de deuxième année en informatique
+Fabrice RAZAFINDRAIBE – ESMIA INNOVATION
+Table des matières
+1 Introduction 4
+2 Objectifs pédagogiques 4
+3 Principes directeurs de la démarche 4
+4 Organisation du travail individuel 4
+4.1 Pourquoi une méthode personnelle est nécessaire . . . . . . . . . . . . . . . . . . 4
+4.2 Habitudes de travail recommandées . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+4.3 Erreurs fréquentes en travail individuel . . . . . . . . . . . . . . . . . . . . . . . . 5
+4.4 Planification personnelle conseillée . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+5 Documents personnels à maintenir pendant le projet 5
+5.1 Le dictionnaire de données et de concepts . . . . . . . . . . . . . . . . . . . . . . 6
+5.2 La fiche de besoin . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+5.3 Le journal de bord personnel . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+5.4 Exemple de fiche de suivi personnel . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+6 Méthodologie globale de conception UML 7
+6.1 Vue synthétique . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+7 Étape 1 – Comprendre le besoin 7
+7.1 Questions à se poser . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+7.2 Livrables attendus . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+7.3 Conseil pédagogique . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+8 Étape 2 – Identifier les acteurs et les cas d’utilisation 8
+8.1 Règles de construction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+8.2 Questions utiles . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+8.3 Fiche textuelle d’un cas d’utilisation . . . . . . . . . . . . . . . . . . . . . . . . . 8
+9 Étape 3 – Construire le modèle statique du domaine 8
+9.1 Diagramme de paquetages . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+9.1.1 Exemple de découpage . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+9.1.2 Conseils . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+9.2 Diagramme de classes d’analyse . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+1
+Méthodologie UML – L2 Informatique 2
+9.2.1 Ce qu’il faut modéliser . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+9.2.2 Méthode conseillée . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+9.2.3 Exemple de classes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+9.3 Diagramme d’objets . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+9.4 Introduction simple à OCL . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+10 Étape 4 – Modéliser les comportements dynamiques 10
+10.1 Diagramme de séquence . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+10.1.1 Quand l’utiliser? . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+10.1.2 Méthode de construction . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+10.2 Diagramme d’activité . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+10.2.1 Quand l’utiliser? . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+10.2.2 Éléments à maîtriser . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+10.3 Diagramme d’états-transitions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+10.3.1 Quand l’utiliser? . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+10.3.2 Exemples de classes adaptées . . . . . . . . . . . . . . . . . . . . . . . . . 12
+10.4 Diagramme de communication . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+11 Étape 5 – Passer à la conception logicielle 12
+11.1 Du modèle d’analyse au modèle de conception . . . . . . . . . . . . . . . . . . . . 12
+11.2 Stéréotypes utiles en conception . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+11.3 Exemple d’organisation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+12 Étape 6 – Structurer l’architecture logique et physique 13
+12.1 Diagramme de composants . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+12.1.1 Utilité . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+12.1.2 Exemple simple . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+12.2 Diagramme de déploiement . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+12.2.1 Quand l’utiliser? . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+12.2.2 Exemple minimal . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+13 Étape 7 – Vérifier, corriger et documenter 13
+13.1 Questions de vérification . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+13.2 Méthode d’auto-relecture . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+14 Chaîne de production recommandée pour un mini-projet UML 14
+15 Mini-cas d’application : système de gestion de bibliothèque 14
+15.1 Acteurs principaux . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+15.2 Cas d’utilisation principaux . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+15.3 Paquetages possibles . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+15.4 Classes métier possibles . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+15.5 Scénarios à détailler . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+15.6 Classe à cycle de vie . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+16 Conseils de présentation du dossier 15
+Méthodologie UML – L2 Informatique 3
+17 Critères d’évaluation possibles 16
+18 Synthèse méthodologique 16
+19 Conclusion 16
+Méthodologie UML – L2 Informatique 4
+1. Introduction
+Dans un projet informatique, UML ne doit pas être utilisé comme une simple activité de
+dessin. Il s’agit d’un langage de modélisation qui aide à comprendre un problème, organiser les
+idées, structurer la conception et préparer le passage au code. Pour des étudiants de deuxième
+année, l’objectif principal n’est pas de produire tous les diagrammes possibles, mais de savoir
+choisir les diagrammes utiles, au bon moment, avec un niveau de détail raisonnable.
+La présente méthodologie est conçue pour destravaux individuels. Elle vise à aider chaque
+étudiant à suivre une démarche rigoureuse, progressive et claire, depuis l’analyse du besoin
+jusqu’à la préparation de la solution logicielle. Elle convient à des mini-projets académiques
+comme la gestion de bibliothèque, la réservation de salle, la gestion d’absences, la gestion de
+stock simple, le suivi d’étudiants ou la commande en ligne.
+2. Objectifs pédagogiques
+À l’issue de ce travail, l’étudiant doit être capable de :
+— analyser un besoin exprimé en langage naturel;
+— identifier les acteurs, les fonctions principales et les données importantes;
+— construire un ensemble cohérent de diagrammes UML;
+— relier les modèles dynamiques et statiques;
+— structurer son travail personnel de manière progressive;
+— justifier ses choix de modélisation avant l’implémentation.
+3. Principes directeurs de la démarche
+La méthodologie proposée repose sur les principes suivants :
+1. Démarche guidée par les cas d’utilisation: on part des services attendus par les
+utilisateurs.
+2. Conception centrée sur l’architecture: la structure du système doit être clarifiée avant
+de coder.
+3. Progression itérative et incrémentale: le modèle s’améliore étape par étape.
+4. Distinction entre analyse et conception: l’analyse décrit le problème, la conception
+prépare la solution logicielle.
+5. Traçabilité: chaque diagramme doit correspondre à un besoin ou à une règle métier.
+6. Lisibilité : un bon diagramme est d’abord compréhensible.
+4. Organisation du travail individuel
+4.1. Pourquoi une méthode personnelle est nécessaire
+Dans un travail individuel, l’étudiant ne peut pas compter sur les autres pour corriger ses
+oublis ou réorganiser sa progression. Il doit donc adopter une discipline simple mais constante :
+— planifier les étapes;
+Méthodologie UML – L2 Informatique 5
+— produire des versions intermédiaires;
+— vérifier la cohérence de ses modèles;
+— conserver un historique de ses choix.
+4.2. Habitudes de travail recommandées
+— lire plusieurs fois l’énoncé avant de modéliser;
+— commencer par des notes simples avant les diagrammes;
+— travailler du général vers le détail;
+— ne pas chercher la perfection au premier jet;
+— versionner les documents;
+— relire chaque diagramme comme si l’on était un lecteur externe.
+4.3. Erreurs fréquentes en travail individuel
+— commencer directement par le diagramme de classes;
+— dessiner des diagrammes sans analyser le besoin;
+— multiplier les diagrammes sans utilité réelle;
+— oublier les cardinalités, états ou scénarios d’exception;
+— produire des diagrammes incohérents entre eux;
+— coder avant d’avoir stabilisé les modèles essentiels.
+4.4. Planification personnelle conseillée
+Séance / pé-
+riode
+Travail recommandé
+Jour 1 Lecture du sujet, reformulation, définition du périmètre, dic-
+tionnaire initial
+Jour 2 Identification des acteurs et des cas d’utilisation
+Jour 3 Construction du diagramme de paquetages et du diagramme
+de classes d’analyse
+Jour 4 Construction des diagrammes dynamiques : séquence, acti-
+vité, états si nécessaire
+Jour 5 Passage à la conception : composants, raffinement des
+classes, préparation au codage
+Jour 6 Vérification, correction, mise en forme, rédaction finale
+5. Documents personnels à maintenir pendant le projet
+Même en travail individuel, certains documents simples doivent être tenus à jour.
+Méthodologie UML – L2 Informatique 6
+5.1. Le dictionnaire de données et de concepts
+Le dictionnaire est un document de référence qui contient :
+— les termes métier;
+— leur définition;
+— les règles de gestion associées;
+— les synonymes à éviter;
+— les données importantes du domaine.
+Exemple :
+Terme Type Définition
+Abonné Acteur métier Personne autorisée à emprunter des
+ouvrages.
+Ouvrage Concept métier Ressource documentaire enregistrée
+dans le système.
+Exemplaire Entité métier Copie physique d’un ouvrage.
+Emprunt Événement métier Action de prêt d’un exemplaire à un
+abonné.
+5.2. La fiche de besoin
+Elle doit préciser :
+— le contexte;
+— l’objectif du système;
+— les utilisateurs concernés;
+— les fonctions principales;
+— les contraintes;
+— les exclusions du périmètre.
+5.3. Le journal de bord personnel
+Le journal de bord permet de noter :
+— les décisions prises;
+— les hypothèses retenues;
+— les difficultés rencontrées;
+— les modifications d’une version à l’autre.
+Méthodologie UML – L2 Informatique 7
+5.4. Exemple de fiche de suivi personnel
+Date Travail effectué Observation Statut
+12/05 Liste des acteurs et des
+fonctions
+Le périmètre reste à préciser En cours
+13/05 Premier diagramme de
+cas d’utilisation
+Relation include à vérifier À corriger
+14/05 Diagramme de classes
+d’analyse
+Cardinalités ajoutées Validé
+6. Méthodologie globale de conception UML
+La démarche peut être résumée en sept grandes étapes.
+6.1. Vue synthétique
+Étape 1 :comprendre le besoin→ Étape 2 :identifier acteurs et cas d’utilisation→
+Étape 3 : construire le modèle statique → Étape 4 : modéliser les comportements
+dynamiques → Étape 5 : passer à la conception logicielle → Étape 6 : organiser
+l’architecture technique→ Étape 7 :vérifier, corriger et documenter
+7. Étape 1 – Comprendre le besoin
+Cette première étape consiste à transformer un sujet textuel en une représentation compré-
+hensible du problème.
+7.1. Questions à se poser
+— Quel est le problème à résoudre?
+— Qui utilise le système?
+— Quelles informations doivent être créées, lues, modifiées ou supprimées?
+— Quelles règles métier doivent être respectées?
+— Quelles situations particulières faut-il prévoir?
+7.2. Livrables attendus
+— une reformulation du sujet;
+— une définition du périmètre;
+— un dictionnaire initial;
+— une première liste des acteurs et fonctions.
+7.3. Conseil pédagogique
+Tant que le besoin n’est pas clair, il ne faut pas passer au diagramme de classes. Il vaut mieux
+écrire des phrases simples, repérer les verbes d’action et les noms importants, puis seulement
+commencer la modélisation.
+Méthodologie UML – L2 Informatique 8
+8. Étape 2 – Identifier les acteurs et les cas d’utilisation
+Le diagramme de cas d’utilisation est le point d’entrée de la modélisation. Il exprime ce que
+le système doit faire du point de vue des utilisateurs.
+8.1. Règles de construction
+1. identifier les acteurs externes au système;
+2. identifier les services attendus;
+3. nommer les cas d’utilisation par des verbes d’action;
+4. relier chaque acteur aux cas concernés;
+5. utiliser «include»pour une sous-fonction partagée;
+6. utiliser «extend»pour une fonction optionnelle ou conditionnelle.
+8.2. Questions utiles
+— Que veut faire l’utilisateur?
+— Que doit-il consulter?
+— Que doit-il saisir ou modifier?
+— À quel moment le système doit-il réagir ou notifier?
+8.3. Fiche textuelle d’un cas d’utilisation
+Chaque cas important doit être décrit en quelques lignes.
+Cas d’utilisation : Emprunter un ouvrage
+Objectif : Permettre a un abonne d’emprunter un exemplaire disponible.
+Acteur principal : Bibliothecaire
+Preconditions : L’abonne est valide ; l’exemplaire est disponible.
+Scenario principal :
+1. Le bibliothecaire identifie l’abonne.
+2. Le systeme verifie les droits.
+3. Le bibliothecaire scanne l’exemplaire.
+4. Le systeme enregistre l’emprunt.
+5. Le systeme calcule la date de retour.
+Postconditions : L’exemplaire devient emprunte.
+Exceptions : abonnement expire, quota depasse, exemplaire indisponible.
+9. Étape 3 – Construire le modèle statique du domaine
+Après les besoins, il faut représenter les éléments stables du système : concepts, objets,
+relations, regroupements.
+9.1. Diagramme de paquetages
+Le diagramme de paquetages permet de regrouper les éléments de modélisation en sous-
+ensembles cohérents. Il est utile pour éviter un diagramme de classes trop chargé.
+Méthodologie UML – L2 Informatique 9
+9.1.1. Exemple de découpage
+— utilisateurs;
+— catalogue;
+— pret;
+— administration;
+— interface.
+9.1.2. Conseils
+— un paquetage doit regrouper des éléments proches;
+— une classe ne doit appartenir qu’à un seul paquetage;
+— les dépendances entre paquetages doivent rester lisibles.
+9.2. Diagramme de classes d’analyse
+Le diagramme de classes représente les concepts principaux du domaine et leurs relations.
+9.2.1. Ce qu’il faut modéliser
+— les classes du domaine;
+— les attributs utiles;
+— les opérations significatives;
+— les associations;
+— les cardinalités;
+— les généralisations;
+— les compositions et agrégations lorsque cela est pertinent.
+9.2.2. Méthode conseillée
+1. relever les noms importants du sujet;
+2. distinguer acteurs, entités, événements et objets techniques;
+3. ne garder que les classes utiles au périmètre;
+4. ajouter les attributs essentiels;
+5. préciser les associations et les cardinalités;
+6. vérifier que les règles métier peuvent être expliquées par le modèle.
+Méthodologie UML – L2 Informatique 10
+9.2.3. Exemple de classes
+Classe Attributs possibles Rôle dans le système
+Abonne id, nom, categorie, statut Utilisateur autorisé à emprun-
+ter.
+Ouvrage isbn, titre, auteur, theme Ressource documentaire.
+Exemplaire codeBarres, etat, localisation Copie physique d’un ouvrage.
+Emprunt dateEmprunt, dateRetour-
+Prevue
+Transaction de prêt.
+Bibliothecaire matricule, nom Agent de gestion.
+9.3. Diagramme d’objets
+Le diagramme d’objets permet de vérifier un diagramme de classes à partir d’un cas concret.
+Il montre des instances réelles à un instant donné.
+9.4. Introduction simple à OCL
+En deuxième année, on peut introduire quelques contraintes simples :
+— un invariant: toujours vrai;
+— une précondition : vraie avant l’opération;
+— une postcondition : vraie après l’opération.
+context Abonne inv: nbEmprunts <= 3
+context Emprunt::prolonger() pre: nbProlongations < 1
+10. Étape 4 – Modéliser les comportements dynamiques
+Un système ne contient pas seulement des objets, il contient aussi des échanges, des séquences
+d’actions et des changements d’état.
+10.1. Diagramme de séquence
+Le diagramme de séquence montre comment plusieurs objets interagissent dans un scénario
+donné.
+10.1.1. Quand l’utiliser ?
+— pour détailler un cas d’utilisation important;
+— pour montrer l’ordre des messages;
+— pour préciser les responsabilités;
+— pour préparer l’implémentation d’un traitement.
+Méthodologie UML – L2 Informatique 11
+10.1.2. Méthode de construction
+1. choisir un scénario précis;
+2. placer les acteurs et objets impliqués;
+3. ordonner les messages;
+4. ajouter alternatives, boucles et exceptions si besoin;
+5. vérifier que les messages correspondent aux opérations du diagramme de classes.
+Acteur -> IHM : demanderEmprunt()
+IHM -> ServiceEmprunt : creerEmprunt(idAbonne, codeExemplaire)
+ServiceEmprunt -> Abonne : verifierDroits()
+ServiceEmprunt -> Exemplaire : verifierDisponibilite()
+ServiceEmprunt -> Emprunt : enregistrer()
+ServiceEmprunt -> IHM : confirmer(dateRetour)
+10.2. Diagramme d’activité
+Le diagramme d’activité sert à représenter un enchaînement d’actions, des décisions, des
+parallélismes et des responsabilités.
+10.2.1. Quand l’utiliser ?
+— pour décrire le déroulement d’un cas d’utilisation;
+— pour représenter une procédure métier;
+— pour détailler le comportement d’une opération;
+— pour clarifier une logique algorithmique ou organisationnelle.
+10.2.2. Éléments à maîtriser
+— n?ud initial;
+— action;
+— décision et garde;
+— bifurcation;
+— synchronisation;
+— n?ud final.
+10.3. Diagramme d’états-transitions
+Ce diagramme est utile lorsqu’un objet change d’état au cours du temps.
+10.3.1. Quand l’utiliser ?
+— lorsqu’une classe possède un cycle de vie clair;
+— lorsque les actions possibles dépendent de l’état courant;
+— lorsqu’il faut représenter des événements et des transitions conditionnelles.
+Méthodologie UML – L2 Informatique 12
+10.3.2. Exemples de classes adaptées
+— Commande : brouillon, validée, payée, expédiée, annulée;
+— Ticket : ouvert, affecté, traité, clôturé;
+— Exemplaire : disponible, réservé, emprunté, perdu.
+10.4. Diagramme de communication
+Le diagramme de communication peut être utilisé en complément du diagramme de séquence
+lorsqu’on veut insister davantage sur l’organisation des liens entre objets que sur l’ordre temporel
+précis.
+11. Étape 5 – Passer à la conception logicielle
+Après l’analyse, il faut préparer une structure plus proche du logiciel à développer.
+11.1. Du modèle d’analyse au modèle de conception
+Le passage à la conception consiste à :
+— ajouter des classes techniques si nécessaire;
+— préciser les types;
+— ajouter les signatures d’opérations;
+— distinguer interfaces, services et entités;
+— clarifier les responsabilités.
+11.2. Stéréotypes utiles en conception
+Quelques catégories simples peuvent guider l’étudiant :
+— «boundary»: interface avec l’utilisateur;
+— «control»: coordination des traitements;
+— «entity»: objets métier persistants;
+— «interface»: contrat de service.
+11.3. Exemple d’organisation
+Catégorie Exemple Rôle
+Boundary EcranEmprunt Dialogue avec l’utilisateur
+Control ServiceEmprunt Coordonne les vérifications et l’en-
+registrement
+Entity Abonne, Exem-
+plaire, Emprunt
+Contient les données métier
+Interface DepotEmprunt Définit l’accès à la persistance
+Méthodologie UML – L2 Informatique 13
+12. Étape 6 – Structurer l’architecture logique et physique
+12.1. Diagramme de composants
+Le diagramme de composants représente les grandes briques logicielles du système.
+12.1.1. Utilité
+— montrer les dépendances entre modules;
+— séparer interface, métier et données;
+— préparer une architecture claire pour le développement.
+12.1.2. Exemple simple
+— composant InterfaceWeb;
+— composant ServicesMetier;
+— composant GestionCatalogue;
+— composant Persistance;
+— composant BaseDeDonnees.
+12.2. Diagramme de déploiement
+Le diagramme de déploiement décrit l’implantation physique du système.
+12.2.1. Quand l’utiliser ?
+— lorsqu’il existe un client, un serveur ou une base de données;
+— lorsqu’il faut montrer où les composants s’exécutent;
+— lorsqu’on veut introduire la notion d’artefact déployé.
+12.2.2. Exemple minimal
+— poste client;
+— serveur applicatif;
+— serveur de base de données.
+13. Étape 7 – Vérifier, corriger et documenter
+Un bon modèle n’est pas seulement correct graphiquement; il doit être cohérent, utile et
+lisible.
+13.1. Questions de vérification
+1. Tous les cas d’utilisation importants sont-ils présents?
+2. Le diagramme de classes permet-il d’expliquer les scénarios?
+3. Les messages des diagrammes de séquence correspondent-ils aux opérations définies?
+Méthodologie UML – L2 Informatique 14
+4. Les cardinalités sont-elles cohérentes?
+5. Le diagramme d’états concerne-t-il réellement une classe à cycle de vie?
+6. Les paquetages et composants sont-ils compréhensibles?
+7. Le périmètre du système est-il clair?
+13.2. Méthode d’auto-relecture
+Dans un travail individuel, l’étudiant doit relire son travail de façon méthodique :
+— relire le sujet avant chaque correction;
+— vérifier les noms des classes, acteurs et associations;
+— repérer les éléments manquants;
+— supprimer les éléments inutiles;
+— vérifier les liens entre diagrammes;
+— préparer une version propre et stable pour remise.
+14. Chaîne de production recommandée pour un mini-projet UML
+Phase Objectif Diagrammes / docu-
+ments
+Livrables
+Cadrage Comprendre le problème Fiche de besoin, diction-
+naire
+Note de cadrage
+Expression
+des besoins
+Identifier les services at-
+tendus
+Acteurs, cas d’utilisa-
+tion, fiches textuelles
+Diagramme de cas
+d’utilisation
+Analyse mé-
+tier
+Identifier les concepts Paquetages, classes
+d’analyse, objets
+Modèle statique du do-
+maine
+Dynamique Décrire les scénarios Séquences, activités,
+états
+Modèle comportemen-
+tal
+Conception Préparer le codage Classes de conception,
+composants
+Architecture logique
+Implantation Préparer l’exécution Déploiement Architecture physique
+Validation Corriger et stabiliser Checklist, relecture per-
+sonnelle
+Version consolidée
+15. Mini-cas d’application : système de gestion de bibliothèque
+15.1. Acteurs principaux
+— Bibliothécaire;
+— Gestionnaire;
+— Abonné;
+— Service externe de notification.
+Méthodologie UML – L2 Informatique 15
+15.2. Cas d’utilisation principaux
+— inscrire un abonné;
+— consulter le catalogue;
+— emprunter un ouvrage;
+— rendre un ouvrage;
+— relancer un retard;
+— enregistrer un nouvel ouvrage.
+15.3. Paquetages possibles
+— utilisateurs;
+— catalogue;
+— pret;
+— administration;
+— ihm.
+15.4. Classes métier possibles
+— Abonne;
+— Bibliothecaire;
+— Ouvrage;
+— Exemplaire;
+— Emprunt;
+— Relance.
+15.5. Scénarios à détailler
+— emprunt d’un ouvrage;
+— restitution d’un ouvrage;
+— relance d’un retard.
+15.6. Classe à cycle de vie
+Exemplaire : disponible → réservé → emprunté → disponible, ou perdu.
+16. Conseils de présentation du dossier
+— donner un titre à chaque diagramme;
+— indiquer son objectif;
+— numéroter les figures;
+— dater les versions;
+— éviter les diagrammes surchargés;
+— accompagner les diagrammes d’une courte explication.
+Méthodologie UML – L2 Informatique 16
+17. Critères d’évaluation possibles
+Critère Poids Attendus
+Compréhension du besoin 20% Le problème est reformulé correctement et
+le périmètre est clair.
+Qualité du diagramme de cas
+d’utilisation
+15% Acteurs pertinents, cas bien nommés, re-
+lations justifiées.
+Qualité du diagramme de classes 20% Classes utiles, associations cohérentes,
+cardinalités correctes.
+Qualité des diagrammes dyna-
+miques
+15% Séquences, activités ou états pertinents et
+cohérents.
+Qualité de l’architecture 10% Paquetages, composants et déploiement
+logiques.
+Suivi méthodologique personnel 10% Dictionnaire, journal de bord, versions, re-
+lecture.
+Clarté et présentation 10% Travail lisible, structuré, soigné.
+18. Synthèse méthodologique
+Pour un étudiant travaillant seul, la démarche recommandée est la suivante :
+1. lire et reformuler le besoin;
+2. établir le dictionnaire initial;
+3. identifier les acteurs et cas d’utilisation;
+4. construire le modèle statique du domaine;
+5. détailler les scénarios par des diagrammes dynamiques;
+6. transformer l’analyse en conception logicielle;
+7. vérifier la cohérence de l’ensemble avant le codage.
+19. Conclusion
+Dans un travail individuel, UML joue un double rôle : il aide à modéliser le système, mais
+aussi à organiser la pensée de l’étudiant. Une bonne méthodologie ne consiste pas à produire
+le plus grand nombre de diagrammes, mais à produire des modèles utiles, cohérents et lisibles.
+L’étudiant doit avancer progressivement, vérifier ses choix, conserver la trace de ses décisions et
+relier chaque diagramme au besoin de départ. Cette discipline de travail prépare non seulement à
+la réussite académique, mais aussi à une pratique plus professionnelle de la conception logicielle.
+Annexe – Checklist rapide avant remise
+— Le périmètre du projet est-il clair?
+— Les termes importants figurent-ils dans le dictionnaire?
+— Les acteurs sont-ils bien identifiés?
+— Les cas d’utilisation sont-ils correctement nommés?
+Méthodologie UML – L2 Informatique 17
+— Le diagramme de classes contient-il seulement les classes utiles?
+— Les cardinalités sont-elles précisées?
+— Les diagrammes dynamiques correspondent-ils à de vrais scénarios?
+— Le diagramme d’états a-t-il été utilisé seulement si nécessaire?
+— Les composants et le déploiement sont-ils cohérents?
+— Le document final est-il lisible, daté et bien structuré?

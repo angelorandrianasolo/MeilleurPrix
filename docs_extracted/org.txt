@@ -1,0 +1,561 @@
+Méthodologie d’organisation du code selon une
+architecture 3-tiers
+Support pédagogique pour des étudiants de deuxième année en informatique
+Fabrice RAZAFINDRAIBE – ESMIA INNOVATION
+Table des matières
+1 Introduction 3
+2 Objectifs pédagogiques 3
+3 Principe général de l’architecture 3-tiers 3
+3.1 Tier 1 : le frontend . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+3.2 Tier 2 : le backend . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+3.3 Tier 3 : la base de données . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+4 Pourquoi cette séparation est importante 4
+5 Règles générales d’organisation du code 4
+5.1 Une responsabilité principale par fichier . . . . . . . . . . . . . . . . . . . . . . . 5
+5.2 Nommer clairement les dossiers et les fichiers . . . . . . . . . . . . . . . . . . . . 5
+5.3 Éviter le mélange des rôles . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+5.4 Centraliser les éléments réutilisables . . . . . . . . . . . . . . . . . . . . . . . . . 5
+6 Vue d’ensemble d’un mini-projet 3-tiers 5
+6.1 Exemple d’organisation des dossiers . . . . . . . . . . . . . . . . . . . . . . . . . 5
+7 Méthodologie d’organisation du frontend 6
+7.1 Rôle du frontend . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+7.2 Organisation recommandée . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+7.3 Règles de bonne pratique . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+7.4 Exemple d’une page frontend . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+7.5 Exemple de script frontend . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+7.6 Observation pédagogique . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+8 Méthodologie d’organisation du backend 8
+8.1 Rôle du backend . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+8.2 Organisation recommandée . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+8.3 Logique de circulation interne . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+8.4 Exemple de route . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+8.5 Exemple de controller . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+1
+Architecture 3-tiers – L2 Informatique 2
+8.6 Exemple de service . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+8.7 Exemple de repository . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+8.8 Exemple de connexion à la base . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+8.9 Pourquoi cette séparation est utile . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+9 Méthodologie d’organisation de la base de données 10
+9.1 Rôle de la base . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+9.2 Documents utiles . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+9.3 Exemple de schéma SQL . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+9.4 Exemple de données initiales . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+9.5 Règles de bonne pratique côté base . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+10 Cycle complet d’une requête 12
+10.1 Exemple : ajout d’un ouvrage . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+10.2 Résumé schématique . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+11 Exemple de méthodologie de développement pas à pas 12
+11.1 Étape 1 : définir le besoin . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+11.2 Étape 2 : identifier les données . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+11.3 Étape 3 : concevoir la base . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+11.4 Étape 4 : organiser le backend . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+11.5 Étape 5 : créer le frontend . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+11.6 Étape 6 : tester le flux complet . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+12 Correspondance entre architecture 3-tiers et UML 13
+12.1 Diagramme de paquetages . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+12.2 Diagramme de composants . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+12.3 Diagramme de déploiement . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+12.4 Diagramme de séquence . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+13 Conventions de codage recommandées 14
+13.1 Côté frontend . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+13.2 Côté backend . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+13.3 Côté base de données . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+14 Erreurs fréquentes à éviter 15
+15 Mini-projet d’application : gestion simple des ouvrages 15
+15.1 Fonctionnalités minimales . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+15.2 Organisation minimale attendue . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+16 Proposition de plan de travail individuel 15
+17 Critères d’évaluation possibles 15
+18 Conclusion 16
+Architecture 3-tiers – L2 Informatique 3
+1. Introduction
+Dans un projet informatique, écrire du code ne consiste pas seulement à faire fonctionner un
+programme. Il faut aussi organiser ce code de manière claire, logique, maintenable et évolutive.
+Une mauvaise organisation rend les corrections difficiles, provoque des duplications, augmente les
+erreursetcompliqueletravailfutur.Unebonneorganisation,aucontraire,permetdecomprendre
+rapidement le projet, d’ajouter de nouvelles fonctionnalités plus facilement et de séparer les
+responsabilités de chaque partie du système.
+L’architecture3-tiers est une manière classique et pédagogique d’organiser une application
+informatique. Elle repose sur trois couches principales :
+— le frontend, qui gère l’interface avec l’utilisateur;
+— le backend, qui traite la logique métier et les échanges;
+— la base de données, qui stocke les informations de manière persistante.
+Cette architecture est particulièrement adaptée à l’apprentissage, car elle oblige à distinguer
+clairement :
+— ce que l’utilisateur voit;
+— ce que le programme décide;
+— ce que le système mémorise.
+2. Objectifs pédagogiques
+À l’issue de cette méthodologie, l’étudiant doit être capable de :
+— comprendre le rôle de chaque tier dans une architecture 3-tiers;
+— organiser ses dossiers et fichiers de manière cohérente;
+— séparer l’interface utilisateur, la logique métier et les données;
+— écrire un mini-projet structuré selon une architecture claire;
+— comprendre le trajet d’une requête depuis l’utilisateur jusqu’à la base de données;
+— préparer une base solide pour des projets plus complexes.
+3. Principe général de l’architecture 3-tiers
+Une architecture 3-tiers répartit les responsabilités sur trois niveaux distincts.
+3.1. Tier 1 : le frontend
+Le frontend est la partie visible de l’application. Il permet à l’utilisateur de :
+— saisir des informations;
+— consulter des données;
+— déclencher des actions;
+— recevoir des réponses du système.
+Il contient souvent :
+— des pages HTML;
+— des feuilles de style CSS;
+— du JavaScript pour l’interactivité.
+Architecture 3-tiers – L2 Informatique 4
+3.2. Tier 2 : le backend
+Le backend reçoit les demandes du frontend, applique les règles du métier, contrôle les
+données, dialogue avec la base de données et renvoie une réponse.
+Il contient souvent :
+— des routes ou contrôleurs;
+— des services métier;
+— des validations;
+— des accès aux données.
+3.3. Tier 3 : la base de données
+La base de données conserve durablement les informations du système :
+— utilisateurs;
+— produits;
+— commandes;
+— notes;
+— emprunts;
+— stocks;
+— etc.
+Elle contient généralement :
+— des tables;
+— des relations;
+— des contraintes;
+— des requêtes SQL.
+4. Pourquoi cette séparation est importante
+La séparation en trois tiers apporte plusieurs avantages :
+1. Clarté : chaque partie a un rôle précis.
+2. Maintenance : on peut modifier l’interface sans réécrire toute la logique métier.
+3. Évolutivité : on peut faire évoluer la base ou le backend sans toucher toute l’application.
+4. Réutilisation : plusieurs interfaces peuvent utiliser le même backend.
+5. Sécurité : le frontend n’accède pas directement à la base de données.
+5. Règles générales d’organisation du code
+Avant même d’écrire les fichiers, il faut respecter quelques principes simples.
+Architecture 3-tiers – L2 Informatique 5
+5.1. Une responsabilité principale par fichier
+Chaque fichier doit avoir un rôle principal. Par exemple :
+— une page pour afficher;
+— un script pour gérer une action;
+— un fichier SQL pour créer les tables;
+— un service pour une logique métier précise.
+5.2. Nommer clairement les dossiers et les fichiers
+Les noms doivent être courts, explicites et cohérents. Il faut éviter des noms vagues comme :
+test.js, data2.php, newfinalfinal.sql.
+5.3. Éviter le mélange des rôles
+Une même page ne doit pas :
+— afficher l’interface;
+— écrire directement du SQL;
+— contenir toute la logique métier;
+— faire de la validation complexe;
+— gérer tous les cas du projet.
+5.4. Centraliser les éléments réutilisables
+Par exemple :
+— les styles communs dans un dossiercss/;
+— les scripts partagés dansjs/;
+— les connexions BD dans un module unique;
+— les fonctions métier dans des services.
+6. Vue d’ensemble d’un mini-projet 3-tiers
+Considérons un mini-projet degestion de bibliothèque. L’utilisateur peut :
+— consulter les ouvrages;
+— ajouter un ouvrage;
+— enregistrer un emprunt.
+6.1. Exemple d’organisation des dossiers
+bibliotheque-3tiers/
+?
+??? frontend/
+? ??? index.html
+? ??? pages/
+? ? ??? ouvrages.html
+Architecture 3-tiers – L2 Informatique 6
+? ? ??? ajout-ouvrage.html
+? ? ??? emprunt.html
+? ??? css/
+? ? ??? style.css
+? ??? js/
+? ??? api.js
+? ??? ouvrages.js
+? ??? emprunt.js
+?
+??? backend/
+? ??? app.js
+? ??? routes/
+? ? ??? ouvrageRoutes.js
+? ? ??? empruntRoutes.js
+? ??? controllers/
+? ? ??? ouvrageController.js
+? ? ??? empruntController.js
+? ??? services/
+? ? ??? ouvrageService.js
+? ? ??? empruntService.js
+? ??? repositories/
+? ? ??? ouvrageRepository.js
+? ? ??? empruntRepository.js
+? ??? config/
+? ??? db.js
+?
+??? database/
+??? schema.sql
+??? seed.sql
+??? requetes-test.sql
+7. Méthodologie d’organisation du frontend
+7.1. Rôle du frontend
+Le frontend ne doit pas contenir toute l’intelligence du système. Son rôle principal est de :
+— afficher les informations;
+— capter les actions de l’utilisateur;
+— envoyer les données au backend;
+— afficher les réponses reçues.
+7.2. Organisation recommandée
+Le frontend peut être organisé comme suit :
+— pages/ : les pages ou écrans;
+— css/ : les styles;
+— js/ : les scripts;
+— assets/ : images, icônes, logos.
+Architecture 3-tiers – L2 Informatique 7
+7.3. Règles de bonne pratique
+— séparer le HTML, le CSS et le JavaScript;
+— éviter le style directement dans les balises HTML;
+— éviter les scripts trop longs dans une seule page;
+— utiliser des fonctions JavaScript courtes et bien nommées;
+— centraliser les appels API dans un fichier spécifique.
+7.4. Exemple d’une page frontend
+<!DOCTYPE html >
+<html lang ="fr">
+<head>
+<meta charset ="UTF-8">
+<title>Ajouter un ouvrage</ title>
+<link rel ="stylesheet" href="../css/style.css">
+</head>
+<body>
+<h1>Ajouter un ouvrage</ h1>
+<form id ="formOuvrage">
+<label>Titre :</ label>
+<input type ="text" id="titre" required>
+<label>Auteur :</ label>
+<input type ="text" id="auteur" required>
+<button type ="submit">Enregistrer</button>
+</form>
+<p id ="message"></p>
+<script src ="../js/ajout-ouvrage.js"></script>
+</body>
+</html>
+7.5. Exemple de script frontend
+document.getElementById("formOuvrage").addEventListener("submit", async function (e) {
+e.preventDefault();
+const titre = document.getElementById("titre").value;
+const auteur = document.getElementById("auteur").value;
+const reponse = await fetch("http://localhost:3000/api/ouvrages", {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+Architecture 3-tiers – L2 Informatique 8
+body: JSON.stringify({ titre, auteur })
+});
+const resultat = await reponse.json();
+document.getElementById("message").textContent = resultat.message;
+});
+7.6. Observation pédagogique
+Le script frontend :
+— récupère les valeurs du formulaire;
+— envoie une requête au backend;
+— reçoit une réponse;
+— affiche un message.
+Il ne fait pas directement d’insertion SQL et ne décide pas seul des règles métier.
+8. Méthodologie d’organisation du backend
+8.1. Rôle du backend
+Le backend constitue le cerveau logique de l’application. Il :
+— reçoit les requêtes;
+— valide les données;
+— applique les règles métier;
+— dialogue avec la base de données;
+— renvoie une réponse structurée.
+8.2. Organisation recommandée
+Une organisation simple et pédagogique du backend peut distinguer :
+— routes/ : définissent les URL;
+— controllers/ : gèrent la requête et la réponse;
+— services/ : appliquent les règles métier;
+— repositories/ : accèdent aux données;
+— config/ : configuration générale, connexion BD.
+8.3. Logique de circulation interne
+Le trajet conseillé est le suivant :
+Frontend → Route → Controller → Service → Repository → Base de données
+Puis le chemin inverse pour la réponse.
+Architecture 3-tiers – L2 Informatique 9
+8.4. Exemple de route
+const express = require("express");
+const router = express.Router();
+const ouvrageController = require("../controllers/ouvrageController");
+router.post("/ouvrages", ouvrageController.ajouterOuvrage);
+router.get("/ouvrages", ouvrageController.listerOuvrages);
+module.exports = router;
+8.5. Exemple de controller
+const ouvrageService = require("../services/ouvrageService");
+exports.ajouterOuvrage = async (req, res) => {
+try {
+const { titre, auteur } = req.body;
+const resultat = await ouvrageService.ajouterOuvrage(titre, auteur);
+res.status(201).json({ message: resultat });
+} catch (erreur) {
+res.status(400).json({ message: erreur.message });
+}
+};
+exports.listerOuvrages = async (req, res) => {
+const ouvrages = await ouvrageService.listerOuvrages();
+res.json(ouvrages);
+};
+8.6. Exemple de service
+const ouvrageRepository = require("../repositories/ouvrageRepository");
+exports.ajouterOuvrage = async (titre, auteur) => {
+if (!titre || !auteur) {
+throw new Error("Le titre et l’auteur sont obligatoires.");
+}
+await ouvrageRepository.insertOuvrage(titre, auteur);
+return "Ouvrage ajoute avec succes.";
+};
+exports.listerOuvrages = async () => {
+return await ouvrageRepository.getAllOuvrages();
+};
+Architecture 3-tiers – L2 Informatique 10
+8.7. Exemple de repository
+const db = require("../config/db");
+exports.insertOuvrage = async (titre, auteur) => {
+const sql = "INSERT INTO ouvrage (titre, auteur) VALUES (?, ?)";
+await db.execute(sql, [titre, auteur]);
+};
+exports.getAllOuvrages = async () => {
+const sql = "SELECT id, titre, auteur FROM ouvrage ORDER BY id DESC";
+const [rows] = await db.execute(sql);
+return rows;
+};
+8.8. Exemple de connexion à la base
+const mysql = require("mysql2/promise");
+const db = mysql.createPool({
+host: "localhost",
+user: "root",
+password: "",
+database: "bibliotheque_db"
+});
+module.exports = db;
+8.9. Pourquoi cette séparation est utile
+Cette séparation permet de comprendre immédiatement :
+— où définir une URL;
+— où traiter les erreurs;
+— où appliquer une règle métier;
+— où écrire les requêtes SQL.
+9. Méthodologie d’organisation de la base de données
+9.1. Rôle de la base
+La base de données doit être pensée comme une couche indépendante. Elle ne doit pas être
+un simple stockage improvisé. Elle doit refléter le domaine étudié avec clarté.
+9.2. Documents utiles
+Pour bien organiser ce tier, il est conseillé d’avoir :
+— un fichier schema.sql pour la structure;
+Architecture 3-tiers – L2 Informatique 11
+— un fichier seed.sql pour les données de départ;
+— un document de dictionnaire de données;
+— éventuellement un schéma relationnel ou UML.
+9.3. Exemple de schéma SQL
+CREATE DATABASE IF NOT EXISTS bibliotheque_db;
+USE bibliotheque_db;
+CREATE TABLE ouvrage (
+id INT AUTO_INCREMENT PRIMARY KEY ,
+titre VARCHAR(150) NOT NULL ,
+auteur VARCHAR(100) NOT NULL
+);
+CREATE TABLE abonne (
+id INT AUTO_INCREMENT PRIMARY KEY ,
+nom VARCHAR(100) NOT NULL ,
+email VARCHAR(120) UNIQUE
+);
+CREATE TABLE emprunt (
+id INT AUTO_INCREMENT PRIMARY KEY ,
+date_emprunt DATE NOT NULL ,
+date_retour DATE,
+ouvrage_id INT NOT NULL ,
+abonne_id INT NOT NULL ,
+CONSTRAINT fk_emprunt_ouvrage FOREIGN KEY (ouvrage_id) REFERENCES ouvrage(id),
+CONSTRAINT fk_emprunt_abonne FOREIGN KEY (abonne_id) REFERENCES abonne(id)
+);
+9.4. Exemple de données initiales
+INSERT INTO ouvrage (titre, auteur) VALUES
+(’Algorithmique’, ’A. Martin’),
+(’Base de donnees’, ’L. Ranaivo’),
+(’Programmation Web’, ’F. Rakoto’);
+INSERT INTO abonne (nom, email) VALUES
+(’Soa’, ’soa@email.com’),
+(’Tiana’, ’tiana@email.com’);
+9.5. Règles de bonne pratique côté base
+— donner des noms cohérents aux tables et colonnes;
+— définir les clés primaires;
+— définir les clés étrangères;
+Architecture 3-tiers – L2 Informatique 12
+— éviter les champs inutiles;
+— imposer les contraintes importantes;
+— ne pas multiplier les duplications de données.
+10. Cycle complet d’une requête
+Pour bien comprendre l’architecture 3-tiers, il faut suivre le trajet d’une action.
+10.1. Exemple : ajout d’un ouvrage
+1. l’utilisateur saisit le titre et l’auteur dans le frontend;
+2. le JavaScript envoie une requête HTTP au backend;
+3. la route reçoit la requête;
+4. le controller extrait les données;
+5. le service vérifie que les champs sont valides;
+6. le repository exécute la requête SQL;
+7. la base enregistre la ligne;
+8. le backend renvoie un message de succès;
+9. le frontend affiche la confirmation.
+10.2. Résumé schématique
+Utilisateur → Frontend → Backend → Base de données→ Backend → Frontend → Utilisateur
+11. Exemple de méthodologie de développement pas à pas
+11.1. Étape 1 : définir le besoin
+Exemple : créer une petite application de bibliothèque permettant d’ajouter et consulter des
+ouvrages.
+11.2. Étape 2 : identifier les données
+On repère les entités :
+— ouvrage;
+— abonné;
+— emprunt.
+11.3. Étape 3 : concevoir la base
+On crée les tables, relations et contraintes.
+Architecture 3-tiers – L2 Informatique 13
+11.4. Étape 4 : organiser le backend
+On crée :
+— les routes;
+— les controllers;
+— les services;
+— les repositories;
+— la configuration BD.
+11.5. Étape 5 : créer le frontend
+On crée :
+— les pages;
+— les formulaires;
+— les scripts d’appel;
+— l’affichage des résultats.
+11.6. Étape 6 : tester le flux complet
+Il faut tester :
+— le formulaire;
+— la requête;
+— la validation;
+— l’insertion en base;
+— le retour affiché à l’utilisateur.
+12. Correspondance entre architecture 3-tiers et UML
+L’architecture 3-tiers peut être représentée avec plusieurs diagrammes UML.
+12.1. Diagramme de paquetages
+Il peut organiser le projet en :
+— paquetage frontend;
+— paquetage backend;
+— paquetage database.
+12.2. Diagramme de composants
+Il permet de montrer les briques logicielles :
+— composant interface utilisateur;
+— composant API;
+— composant service métier;
+— composant SGBD.
+Architecture 3-tiers – L2 Informatique 14
+12.3. Diagramme de déploiement
+Il peut représenter :
+— un poste client;
+— un serveur applicatif;
+— un serveur de base de données.
+12.4. Diagramme de séquence
+Il montre le trajet d’une requête :
+— utilisateur;
+— interface;
+— contrôleur;
+— service;
+— repository;
+— base.
+13. Conventions de codage recommandées
+13.1. Côté frontend
+— noms de fichiers explicites;
+— fonctions courtes;
+— séparation HTML / CSS / JS;
+— gestion propre des messages d’erreur.
+13.2. Côté backend
+— une route par ressource ou domaine;
+— un controller par domaine principal;
+— un service par logique métier;
+— un repository par entité importante.
+13.3. Côté base de données
+— noms stables des tables;
+— types adaptés;
+— contraintes explicites;
+— scripts séparés pour la création et les données d’exemple.
+Architecture 3-tiers – L2 Informatique 15
+14. Erreurs fréquentes à éviter
+1. écrire du SQL directement dans le frontend;
+2. mettre toute la logique dans un seul fichier backend;
+3. mélanger validation, accès BD et réponse HTTP au même endroit;
+4. dupliquer les requêtes SQL;
+5. ne pas séparer les scripts de création de base et les scripts de test;
+6. utiliser des noms de fichiers non significatifs;
+7. ne pas documenter la structure du projet.
+15. Mini-projet d’application : gestion simple des ouvrages
+15.1. Fonctionnalités minimales
+— ajouter un ouvrage;
+— lister les ouvrages;
+— enregistrer un emprunt;
+— afficher les emprunts.
+15.2. Organisation minimale attendue
+— au moins une page frontend fonctionnelle;
+— un backend structuré en routes, controllers, services et repositories;
+— une base de données avec au moins trois tables reliées;
+— un test complet du trajet d’une requête.
+16. Proposition de plan de travail individuel
+Période Travail recommandé
+Séance 1 Définition du besoin, liste des fonctionnalités, identification
+des données
+Séance 2 Conception de la base de données, schéma relationnel, script
+SQL
+Séance 3 Mise en place du backend : routes, controllers, services, repo-
+sitories
+Séance 4 Création du frontend : pages, formulaires, appels API
+Séance 5 Intégration complète, tests, corrections, documentation
+17. Critères d’évaluation possibles
+Critère Poids Attendus
+Architecture 3-tiers – L2 Informatique 16
+Compréhension de l’architecture
+3-tiers
+15% Les rôles du frontend, du backend et de la
+base sont bien distingués.
+Organisation des dossiers et fi-
+chiers
+15% La structure du projet est claire et cohé-
+rente.
+Qualité du frontend 15% Interface lisible, scripts clairs, appels ba-
+ckend corrects.
+Qualité du backend 25% Bonne séparation routes / controllers /
+services / repositories.
+Qualité de la base de données 15% Tables cohérentes, contraintes présentes,
+requêtes correctes.
+Intégration complète 10% Le flux complet fonctionne du frontend
+jusqu’à la base.
+Présentation et documentation 5% Travail lisible, structuré et bien expliqué.
+18. Conclusion
+L’architecture 3-tiers constitue une excellente base méthodologique pour apprendre à orga-
+niser du code de manière professionnelle. Elle oblige à séparer ce que l’utilisateur voit, ce que le
+système décide et ce que la base conserve. Pour un étudiant de deuxième année, cette architec-
+ture offre un cadre clair pour comprendre comment construire un projet maintenable, évolutif
+et cohérent.
+L’essentiel n’est pas seulement de faire fonctionner l’application, mais de montrer que chaque
+partie du code a une place logique. Un bon projet 3-tiers est un projet dans lequel on peut
+répondre facilement aux questions suivantes :
+— où se trouve l’interface?
+— où se trouve la logique métier?
+— où se trouve l’accès aux données?
+— comment une requête circule-t-elle dans le système?
+Annexe – Checklist rapide
+— Les dossiers frontend, backend et database sont-ils distincts?
+— Le frontend fait-il seulement l’affichage et l’interaction?
+— Le backend est-il séparé en couches internes?
+— Les requêtes SQL sont-elles centralisées?
+— La base de données contient-elle des clés et contraintes?
+— Le flux complet a-t-il été testé?
+— Les noms des fichiers sont-ils explicites?
+— Le projet est-il compréhensible par un autre lecteur?
