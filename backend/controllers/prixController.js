@@ -2,6 +2,7 @@
 
 const prixService = require('../services/prixService');
 const validationService = require('../services/validationService');
+const alerteService = require('../services/alerteService');
 
 exports.create = async (req, res, next) => {
   try {
@@ -53,11 +54,21 @@ exports.create = async (req, res, next) => {
       source_saisie: req.body.source_saisie || 'WEB'
     });
     
+    let alertesDeclenchees = [];
+    try {
+      alertesDeclenchees = await alerteService.verifierEtDeclencher({
+        produit_id,
+        marche_id,
+        nouveau_prix: montant
+      });
+    } catch (_) {}
+
     res.status(201).json({
       success: true,
       data: result,
       message: 'Prix enregistré avec succès.',
-      warning: warning || undefined
+      warning: warning || undefined,
+      alertes_declenchees: alertesDeclenchees.length > 0 ? alertesDeclenchees : undefined
     });
   } catch (err) {
     next(err);

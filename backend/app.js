@@ -17,6 +17,8 @@ const previsionRoutes = require('./routes/previsionRoutes');
 const panierRoutes    = require('./routes/panierRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
 const syncRoutes      = require('./routes/syncRoutes');
+const alerteRoutes    = require('./routes/alerteRoutes');
+const utilisateurRoutes = require('./routes/utilisateurRoutes');
 
 const errorHandler = require('./middlewares/errorHandler');
 const notFound     = require('./middlewares/notFound');
@@ -42,7 +44,9 @@ app.use(`${API_PREFIX}/prix`,       prixRoutes);
 app.use(`${API_PREFIX}/previsions`, previsionRoutes);
 app.use(`${API_PREFIX}/panier`,     panierRoutes);
 app.use(`${API_PREFIX}/dashboard`,  dashboardRoutes);
-app.use(`${API_PREFIX}/sync`,       syncRoutes);
+app.use(`${API_PREFIX}/sync`,          syncRoutes);
+app.use(`${API_PREFIX}/alertes`,       alerteRoutes);
+app.use(`${API_PREFIX}/utilisateurs`,  utilisateurRoutes);
 
 app.get('/health', (req, res) => {
   res.json({

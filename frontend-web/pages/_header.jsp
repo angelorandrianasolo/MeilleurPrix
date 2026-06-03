@@ -15,7 +15,9 @@
       <a href="comparaison.jsp">Comparaison</a>
       <a href="panier.jsp">Panier</a>
       <a href="prevision.jsp">Prevision</a>
+      <a href="alertes.jsp">Alertes</a>
       <a href="dashboard.jsp">Dashboard</a>
+      <a href="gestion-utilisateurs.jsp" id="navAdmin" style="display:none">Utilisateurs</a>
       <a href="#" id="logout" class="logout-link">Deconnexion</a>
     </nav>
   </div>
@@ -38,6 +40,14 @@
         ticking = true;
       }
     });
+
+    try {
+      var user = JSON.parse(sessionStorage.getItem('mp_user') || '{}');
+      if (user.role === 'ADMINISTRATEUR') {
+        var adminLink = document.getElementById('navAdmin');
+        if (adminLink) adminLink.style.display = '';
+      }
+    } catch(e) {}
 
     var links = document.querySelectorAll('nav a:not(#logout)');
     var current = location.pathname.split('/').pop() || 'recherche.jsp';
