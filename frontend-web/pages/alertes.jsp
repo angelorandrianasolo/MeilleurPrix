@@ -101,8 +101,6 @@
   (function() {
     if (typeof requireAuth === 'function' && !requireAuth()) return;
 
-    var API = window.API_URL;
-
     function msg(text, type) {
       var el = document.getElementById('msg');
       el.textContent = text;
@@ -111,7 +109,7 @@
     }
 
     function chargerProduits() {
-      apiFetch(API + '/api/v1/produits').then(function(res) {
+      apiFetch('/produits').then(function(res) {
         if (!res.success) throw new Error('Erreur chargement produits');
         var sel = document.getElementById('produit_id');
         sel.innerHTML = '<option value="">Selectionner un produit</option>';
@@ -122,7 +120,7 @@
     }
 
     function chargerMarches() {
-      apiFetch(API + '/api/v1/marches').then(function(res) {
+      apiFetch('/marches').then(function(res) {
         if (!res.success) throw new Error('Erreur chargement marches');
         var sel = document.getElementById('marche_id');
         var curr = sel.value;
@@ -135,7 +133,7 @@
     }
 
     function chargerAlertes() {
-      apiFetch(API + '/api/v1/alertes').then(function(res) {
+      apiFetch('/alertes').then(function(res) {
         if (!res.success) throw new Error('Erreur chargement alertes');
         var el = document.getElementById('listeAlertes');
         if (!res.data || res.data.length === 0) {
@@ -162,7 +160,7 @@
     }
 
     function chargerHistorique() {
-      apiFetch(API + '/api/v1/alertes/historique').then(function(res) {
+      apiFetch('/alertes/historique').then(function(res) {
         if (!res.success) throw new Error('Erreur chargement historique');
         var el = document.getElementById('listeHistorique');
         if (!res.data || res.data.length === 0) {
@@ -184,7 +182,7 @@
     }
 
     function chargerNonLues() {
-      apiFetch(API + '/api/v1/alertes/non-lues').then(function(res) {
+      apiFetch('/alertes/non-lues').then(function(res) {
         if (!res.success) return;
         var badge = document.getElementById('notifBadge');
         if (res.data && res.data.nb > 0) {
@@ -197,7 +195,7 @@
     }
 
     window.basculerAlerte = function(id) {
-      apiFetch(API + '/api/v1/alertes/' + id + '/toggle', { method: 'PATCH' }).then(function(res) {
+      apiFetch('/alertes/' + id + '/toggle', { method: 'PATCH' }).then(function(res) {
         if (!res.success) throw new Error('Erreur');
         chargerAlertes();
       }).catch(function(e) { msg('Erreur: ' + e.message, 'err'); });
@@ -205,7 +203,7 @@
 
     window.supprimerAlerte = function(id) {
       if (!confirm('Supprimer cette alerte ?')) return;
-      apiFetch(API + '/api/v1/alertes/' + id, { method: 'DELETE' }).then(function(res) {
+      apiFetch('/alertes/' + id, { method: 'DELETE' }).then(function(res) {
         if (!res.success) throw new Error('Erreur');
         chargerAlertes();
       }).catch(function(e) { msg('Erreur: ' + e.message, 'err'); });
@@ -221,7 +219,7 @@
       };
       if (!data.produit_id) { msg('Selectionnez un produit.', 'err'); return; }
       if (!data.prix_seuil || data.prix_seuil <= 0) { msg('Prix seuil invalide.', 'err'); return; }
-      apiFetch(API + '/api/v1/alertes', { method: 'POST', body: JSON.stringify(data) }).then(function(res) {
+      apiFetch('/alertes', { method: 'POST', body: JSON.stringify(data) }).then(function(res) {
         if (!res.success) throw new Error(res.message || 'Erreur creation');
         msg('Alerte creee avec succes !');
         document.getElementById('formAlerte').reset();
@@ -230,7 +228,7 @@
     });
 
     document.getElementById('btnMarquerLues').addEventListener('click', function() {
-      apiFetch(API + '/api/v1/alertes/lues', { method: 'PUT' }).then(function(res) {
+      apiFetch('/alertes/lues', { method: 'PUT' }).then(function(res) {
         if (!res.success) throw new Error('Erreur');
         chargerHistorique();
         chargerNonLues();

@@ -110,7 +110,6 @@
   (function() {
     if (typeof requireAuth === 'function' && !requireAuth()) return;
 
-    var API = window.API_URL;
     var userIdEdition = null;
 
     function msg(text, type) {
@@ -121,7 +120,7 @@
     }
 
     function chargerStats() {
-      apiFetch(API + '/api/v1/utilisateurs').then(function(res) {
+      apiFetch('/utilisateurs').then(function(res) {
         if (!res.success || !res.data) return;
         var users = res.data;
         var stats = {
@@ -143,7 +142,7 @@
     }
 
     function chargerUtilisateurs() {
-      apiFetch(API + '/api/v1/utilisateurs').then(function(res) {
+      apiFetch('/utilisateurs').then(function(res) {
         if (!res.success) throw new Error('Erreur chargement');
         var tbody = document.getElementById('userBody');
         if (!res.data || res.data.length === 0) {
@@ -168,7 +167,7 @@
     }
 
     window.editerUtilisateur = function(id) {
-      apiFetch(API + '/api/v1/utilisateurs/' + id).then(function(res) {
+      apiFetch('/utilisateurs/' + id).then(function(res) {
         if (!res.success) throw new Error('Erreur');
         var u = res.data;
         userIdEdition = id;
@@ -192,7 +191,7 @@
         return;
       }
       if (!confirm('Supprimer definitivement l\'utilisateur "' + nom + '" ? Cette action est irreversible.')) return;
-      apiFetch(API + '/api/v1/utilisateurs/' + id, { method: 'DELETE' }).then(function(res) {
+      apiFetch('/utilisateurs/' + id, { method: 'DELETE' }).then(function(res) {
         if (!res.success) throw new Error(res.message || 'Erreur');
         msg('Utilisateur supprime.');
         chargerUtilisateurs();
@@ -210,7 +209,7 @@
         est_actif: document.getElementById('edit_est_actif').value === 'true'
       };
       if (!data.nom) { msg('Le nom est obligatoire.', 'err'); return; }
-      apiFetch(API + '/api/v1/utilisateurs/' + userIdEdition, { method: 'PUT', body: JSON.stringify(data) }).then(function(res) {
+      apiFetch('/utilisateurs/' + userIdEdition, { method: 'PUT', body: JSON.stringify(data) }).then(function(res) {
         if (!res.success) throw new Error(res.message || 'Erreur');
         msg('Utilisateur mis a jour.');
         fermerModal();
