@@ -105,7 +105,6 @@
       </form>
     </div>
   </div>
-  <%@ include file="_config.jsp" %>
   <script src="<%= request.getContextPath() %>/js/api.js"></script>
   <script>
   (function() {
