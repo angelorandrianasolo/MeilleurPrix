@@ -1,6 +1,4 @@
-# Meilleur Prix — Projet transversal L2 SIO
-
-**Etudiant :** RANDRIANASOLO Fanirina Angelo — **NIE :** SI20240029
+# Meilleur Prix
 
 Systeme de collecte, analyse et prevision des prix dans les marches malgaches (bazary).
 
