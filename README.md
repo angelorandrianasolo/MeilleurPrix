@@ -108,13 +108,6 @@ Emulateur Android : `API_URL=http://10.0.2.2:3000/api/v1`
 | POST | `/api/v1/sync` | Oui | FIFO sync offline |
 | GET | `/health` | - | Health check |
 
-## Bugs corriges (audit)
-
-1. `frontend-mobile/app/(tabs)/comparer.js` : `border: 1` → `borderWidth: 1`, `paddingTopVertical` → `paddingVertical`
-2. `frontend-mobile/src/services/syncService.js` : IP hardcodee (`10.162.122.155:3000`) → `API_BASE` depuis `api.js`
-3. `database/schema.sql` : `uuid_generate_v4()` → UUIDs stables pour categories/marches ; categories alignees avec validationService
-4. `database/seed.sql` : Prix contraints par categorie (500-9000 Ar) pour eviter faux positifs outliers
-
 ## Audit complet
 
 Voir `CDC_SI20240029_L2SIO1.docx` pour le cahier des charges original.
