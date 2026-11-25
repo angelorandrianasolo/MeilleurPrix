@@ -5,8 +5,23 @@ const prixRepo = require('../repositories/prixRepository');
 const { construireGraphe, dijkstra } = require('./algorithms/dijkstra');
 
 exports.getAll = async () => marcheRepo.findAll();
+exports.getAllAdmin = async () => marcheRepo.findAllAdmin();
 
 exports.getById = async (id) => marcheRepo.findById(id);
+
+exports.creer = async (data) => marcheRepo.create(data);
+
+exports.modifier = async (id, data) => {
+  const m = await marcheRepo.update(id, data);
+  if (!m) { const e = new Error('Marche introuvable.'); e.statusCode = 404; throw e; }
+  return m;
+};
+
+exports.supprimer = async (id) => {
+  const ok = await marcheRepo.remove(id);
+  if (!ok) { const e = new Error('Marche introuvable.'); e.statusCode = 404; throw e; }
+  return true;
+};
 
 exports.trouverMeilleureOption = async (departId, produitId) => {
   const debut = Date.now();

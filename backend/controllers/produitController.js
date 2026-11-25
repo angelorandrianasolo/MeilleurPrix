@@ -46,3 +46,27 @@ exports.getById = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.create = async (req, res, next) => {
+  try {
+    const { nom_fr, nom_mg, categorie_id, unite, description } = req.body;
+    if (!nom_fr || !nom_mg || !categorie_id || !unite)
+      return res.status(400).json({ success: false, message: 'nom_fr, nom_mg, categorie_id et unite obligatoires.' });
+    const p = await produitService.creer({ nom_fr, nom_mg, categorie_id, unite, description });
+    res.status(201).json({ success: true, data: p });
+  } catch (err) { next(err); }
+};
+
+exports.update = async (req, res, next) => {
+  try {
+    const p = await produitService.modifier(req.params.id, req.body);
+    res.json({ success: true, data: p });
+  } catch (err) { next(err); }
+};
+
+exports.remove = async (req, res, next) => {
+  try {
+    await produitService.supprimer(req.params.id);
+    res.json({ success: true, message: 'Produit desactive.' });
+  } catch (err) { next(err); }
+};

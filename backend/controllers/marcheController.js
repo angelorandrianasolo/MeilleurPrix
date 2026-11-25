@@ -22,6 +22,30 @@ exports.getById = async (req, res, next) => {
   }
 };
 
+exports.create = async (req, res, next) => {
+  try {
+    const { nom, ville, latitude, longitude, photo_url } = req.body;
+    if (!nom || !ville || latitude === undefined || longitude === undefined)
+      return res.status(400).json({ success: false, message: 'nom, ville, latitude, longitude obligatoires.' });
+    const m = await marcheService.creer({ nom, ville, latitude, longitude, photo_url });
+    res.status(201).json({ success: true, data: m });
+  } catch (err) { next(err); }
+};
+
+exports.update = async (req, res, next) => {
+  try {
+    const m = await marcheService.modifier(req.params.id, req.body);
+    res.json({ success: true, data: m });
+  } catch (err) { next(err); }
+};
+
+exports.remove = async (req, res, next) => {
+  try {
+    await marcheService.supprimer(req.params.id);
+    res.json({ success: true, message: 'Marche desactive.' });
+  } catch (err) { next(err); }
+};
+
 exports.comparer = async (req, res, next) => {
   try {
     const { produitId, departId } = req.query;

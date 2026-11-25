@@ -31,6 +31,26 @@ exports.getById = async (id) => produitRepo.findById(id);
 
 exports.getCategories = async () => produitRepo.findCategories();
 
+exports.creer = async (data) => {
+  const p = await produitRepo.create(data);
+  trieLoaded = false;
+  return p;
+};
+
+exports.modifier = async (id, data) => {
+  const p = await produitRepo.update(id, data);
+  if (!p) { const e = new Error('Produit introuvable.'); e.statusCode = 404; throw e; }
+  trieLoaded = false;
+  return p;
+};
+
+exports.supprimer = async (id) => {
+  const ok = await produitRepo.remove(id);
+  if (!ok) { const e = new Error('Produit introuvable.'); e.statusCode = 404; throw e; }
+  trieLoaded = false;
+  return true;
+};
+
 exports.refreshIndex = async () => {
   trieLoaded = false;
   await ensureTrie();

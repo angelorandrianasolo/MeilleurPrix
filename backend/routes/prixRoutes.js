@@ -6,6 +6,7 @@ const ctrl = require('../controllers/prixController');
 const { authenticate, authorize } = require('../middlewares/authMiddleware');
 const { validatePrix } = require('../middlewares/validate');
 
+router.get('/', ctrl.getLast);
 router.get('/produit/:produitId', ctrl.getByProduit);
 
 router.post(

@@ -29,5 +29,8 @@ exports.enregistrerPrix = async ({
   });
 };
 
+exports.getLastSaisies = async (limit) =>
+  prixRepo.findLastSaisies(limit);
+
 exports.getHistorique = async (produitId, marcheId = null, depuis = null) =>
   prixRepo.findHistorique(produitId, marcheId, depuis);

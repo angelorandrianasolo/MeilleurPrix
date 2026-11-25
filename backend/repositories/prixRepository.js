@@ -44,6 +44,20 @@ exports.updateStatut = async (id, statut, raison_rejet = null) => {
   return rows[0];
 };
 
+exports.findLastSaisies = async (limit = 10) => {
+  const { rows } = await db.query(
+    `SELECT sp.*, p.nom_fr AS nom_produit, m.nom AS nom_marche
+     FROM saisie_prix sp
+     JOIN produit p ON p.id = sp.produit_id
+     JOIN marche m ON m.id = sp.marche_id
+     WHERE sp.statut = 'SYNCHRONISEE'
+     ORDER BY sp.date_saisie DESC
+     LIMIT $1`,
+    [limit]
+  );
+  return rows;
+};
+
 exports.findHistorique = async (produitId, marcheId = null, depuis = null) => {
   let sql = `
     SELECT date_jour, prix_min, prix_max, prix_moyen, nb_saisies, marche_id
@@ -67,7 +81,7 @@ exports.findHistorique = async (produitId, marcheId = null, depuis = null) => {
 
 exports.getDerniersPrixParMarche = async (produitId) => {
   const { rows } = await db.query(
-    `SELECT marche_id, prix_actuel AS prix, marche_nom, ville, date_prix
+    `SELECT marche_id, prix_actuel AS prix, marche_nom, ville, date_prix, produit_nom_fr
      FROM v_prix_actuel
      WHERE produit_id = $1`,
     [produitId]

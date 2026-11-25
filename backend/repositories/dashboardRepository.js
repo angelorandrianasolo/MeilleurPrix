@@ -68,3 +68,14 @@ exports.getTendance30j = async () => {
   );
   return rows;
 };
+
+exports.getCollectorStats = async (userId) => {
+  const { rows } = await db.query(`
+    SELECT
+      (SELECT COUNT(*)::int FROM saisie_prix WHERE utilisateur_id = $1 AND statut = 'SYNCHRONISEE') AS nb_saisies,
+      (SELECT COUNT(DISTINCT produit_id)::int FROM saisie_prix WHERE utilisateur_id = $1 AND statut = 'SYNCHRONISEE') AS nb_produits_distincts,
+      (SELECT COUNT(*)::int FROM file_synchronisation WHERE utilisateur_id = $1 AND statut = 'EN_ATTENTE') AS sync_attente,
+      (SELECT MAX(date_saisie)::text FROM saisie_prix WHERE utilisateur_id = $1 AND statut = 'SYNCHRONISEE') AS derniere_saisie
+  `, [userId]);
+  return rows[0];
+};

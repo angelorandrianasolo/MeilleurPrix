@@ -3,14 +3,14 @@
 const express = require('express');
 const router = express.Router();
 const ctrl = require('../controllers/alerteController');
-const { authenticate } = require('../middlewares/authMiddleware');
+const { authenticate, authorize } = require('../middlewares/authMiddleware');
 
-router.post('/',   authenticate, ctrl.create);
-router.get('/',    authenticate, ctrl.list);
-router.get('/non-lues', authenticate, ctrl.nonLues);
-router.get('/historique', authenticate, ctrl.historique);
-router.put('/lues', authenticate, ctrl.marquerLues);
-router.delete('/:id', authenticate, ctrl.remove);
-router.patch('/:id/toggle', authenticate, ctrl.toggle);
+router.post('/',   authenticate, authorize('ACHETEUR'), ctrl.create);
+router.get('/',    authenticate, authorize('ACHETEUR'), ctrl.list);
+router.get('/non-lues', authenticate, authorize('ACHETEUR'), ctrl.nonLues);
+router.get('/historique', authenticate, authorize('ACHETEUR'), ctrl.historique);
+router.put('/lues', authenticate, authorize('ACHETEUR'), ctrl.marquerLues);
+router.delete('/:id', authenticate, authorize('ACHETEUR'), ctrl.remove);
+router.patch('/:id/toggle', authenticate, authorize('ACHETEUR'), ctrl.toggle);
 
 module.exports = router;

@@ -75,6 +75,16 @@ exports.create = async (req, res, next) => {
   }
 };
 
+exports.getLast = async (req, res, next) => {
+  try {
+    const limit = parseInt(req.query.limit) || 10;
+    const data = await prixService.getLastSaisies(limit);
+    res.json({ success: true, data });
+  } catch (err) {
+    next(err);
+  }
+};
+
 exports.getByProduit = async (req, res, next) => {
   try {
     const { produitId } = req.params;
