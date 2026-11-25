@@ -57,7 +57,7 @@
             </div>
             <div class="form-group">
               <label for="prix_seuil">Prix seuil (Ar)</label>
-              <input type="number" id="prix_seuil" class="form-control" step="100" min="1" required placeholder="Ex: 2000">
+              <input type="number" id="prix_seuil" class="form-control" min="1" required placeholder="Ex: 2000">
             </div>
             <div class="form-group">
               <label for="type_seuil">Condition</label>

@@ -31,7 +31,6 @@
 <body>
   <div class="page-header">
     <h1>Optimisation du Panier</h1>
-    <p>Sac a dos 0/1 par programmation dynamique</p>
   </div>
   <div class="container">
     <div class="pn-grid">

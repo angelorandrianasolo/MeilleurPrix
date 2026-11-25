@@ -119,10 +119,6 @@
           </div>
           <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
         </form>
-        <div class="demo-info">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-          <span>Demo: <strong>admin@meilleurprix.mg</strong> / <strong>admin123</strong></span>
-        </div>
         <div class="auth-footer">
           Pas encore de compte ? <a href="register.jsp">Creer un compte</a>
         </div>
