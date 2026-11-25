@@ -119,4 +119,4 @@ Emulateur Android : `API_URL=http://10.0.2.2:3000/api/v1`
 
 ## Audit complet
 
-Voir `docs_extracted/cdc.txt` pour le CDC original.
+Voir `CDC_SI20240029_L2SIO1.docx` pour le cahier des charges original.
